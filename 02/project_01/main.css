@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    background: lightgrey;
+    width: 100%;
+    height: 100vh;
+    font-size: 18px;
+    font-family: 'Noto Sans KR',
+        sans-serif;
+    padding-top: 40px;
+}
+
+ul,
+li {
+    list-style: none;
+}
+
+.contents {
+    width: 380px;
+    height: 600px;
+    background: #fff;
+    margin: 0 auto;
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 3px 3px 10px -3px rgba(0, 0, 0, 0.2);
+    background: rgb(238, 238, 238);
+}
+
+/* HEADER */
+header {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 60px;
+    background: linear-gradient(120deg, #00b09b, #96c93d);
+}
+
+header h1 {
+    color: rgb(255, 255, 255, 0.8);
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* MAIN */
+main .lists {
+    margin-top: 60px;
+    padding-top: 20px;
+    padding-left: 0;
+}
+
+main .lists li {
+    padding: 0 20px 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+main .lists li:hover span:first-child {
+    font-weight: bold;
+}
+
+main .lists li span {
+    font-weight: 300;
+    color: #444444;
+}
+
+main .lists .trash_icon {
+    transition: 0.3s;
+}
+
+main .lists .trash_icon:hover {
+    cursor: pointer;
+    color: crimson;
+}
+
+main form {
+    position: absolute;
+    bottom: 80px;
+    left: 0;
+}
+
+form input {
+    border: none;
+    width: 380px;
+    height: 40px;
+    background: #fff;
+    text-indent: 10px;
+    font-size: 16px;
+}
+
+
+button {
+    border: none;
+    background: rgba(0, 0, 0, 0.5);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 55px;
+    z-index: 3;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.6);
+
+    transition: 0.6s;
+    transition-delay: 0.1s;
+    cursor: pointer;
+}
+
+button:hover {
+    font-size: 25px;
+    color: rgba(255, 255, 255, 1);
+}
+
+
+/* FOOTER */
+footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 80px;
+    background: linear-gradient(120deg, #00b09b, #96c93d);
+}

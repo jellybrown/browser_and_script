@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html {
+            height: 200vh;
+        }
+
+        .contents {
+            background: dimgray;
+            padding: 10px;
+        }
+
+        .box {
+            width: 200px;
+            height: 200px;
+            background: lightpink;
+            margin: 10px;
+        }
+
+        .box:nth-child(7) {
+            background: lightsalmon;
+        }
+
+        .buttons {
+            position: fixed;
+            margin-left: 500px;
+        }
+    </style>
+    <script defer src="main.js"></script>
+</head>
+
+<body>
+    <div class="contents">
+        <div class="buttons">
+            <button class="by">scroll by 100px</button>
+            <button class="to">scroll to 100px</button>
+            <button class="sp">scroll into special</button>
+        </div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+    </div>
+</body>
+
+</html>

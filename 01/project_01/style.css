@@ -1,0 +1,47 @@
+/* COMMON */
+body {
+    background: #000;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    color: #fff;
+    position: relative;
+    font-size: 20px;
+}
+
+
+/* STYLE */
+
+.target {
+    position: absolute;
+
+    transform: translate(-50%, -50%);
+    width: 120px;
+    height: 120px;
+}
+
+.cord_text {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.line {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: #fff;
+
+}
+
+.lineX {
+    width: 100%;
+    height: 1px;
+
+}
+
+.lineY {
+    width: 1px;
+    height: 100%;
+
+}
