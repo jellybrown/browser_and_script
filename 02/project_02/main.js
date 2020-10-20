@@ -1,7 +1,9 @@
-function getRandom(min, max) {
+function getRandom(min, max) { //랜덤좌표 생성을 위한 함수
     const value = Math.floor(Math.random() * (max - min) + min);
     return value;
 }
+
+
 
 
 
@@ -16,10 +18,10 @@ const widthCordS = Math.floor(field.getBoundingClientRect().x);
 const widthCordE = Math.floor(field.getBoundingClientRect().width);
 const heightCordS = Math.floor(field.getBoundingClientRect().y);
 const heightCordE = Math.floor(field.getBoundingClientRect().bottom);
-let flag = true;
-
-let count;
-let timeCount;
+let flag = false; // 처음 시작시 게임상태 false (timer활용하려면 중요)
+let timer;
+let count = 10;
+let timeCount = 10;
 console.log(widthCordS, widthCordE, heightCordS, heightCordE)
 
 
@@ -27,14 +29,11 @@ console.log(widthCordS, widthCordE, heightCordS, heightCordE)
 //carrot.style.top = `${heightValue - carrotHeight}px`;
 
 
-// 1. for
-// 2. 부모의 자식에게 -> for
-
 function newCord(ele) {
     ele.forEach((ele) => {
         const widthValue = getRandom(widthCordS, widthCordE); // x좌표
         const heightValue = getRandom(heightCordS, heightCordE); // y좌표
-        console.log(widthValue, heightValue)
+        
         ele.style.left = `${widthValue}px`;
         ele.style.top = `${heightValue}px`;
 
@@ -47,26 +46,20 @@ function newCord(ele) {
 
 
 
-
 function startGame() {
-
-
-
-
-
-    count = 10;
-    timeCount = 10;
-    countText.innerHTML = `${count}`;
-    timeText.innerHTML = `0:${timeCount}`;
-    const timeLimit = setInterval(() => {
-        timeCount -= 1;
-        timeText.innerHTML = `0:0${timeCount}`;
-        if (timeCount == 0) {
-            clearInterval(timeLimit);
+    
+   
+    if(flag === true) {
+        if(timeCount !== 10) { //두자리수 맞춰주기
+            timeCountText = `0:0${timeCount}`
+        } else {
+            timeCountText = `0:${timeCount}`
         }
-    }, 1000);
+    countText.innerHTML = `${count}`;
+    timeText.innerHTML = timeCountText;
 
-
+    startTimer();
+    
 
     carrotField.addEventListener("click", (e) => {
         const clickThis = e.target;
@@ -78,29 +71,38 @@ function startGame() {
             countText.innerHTML = `${count}`;
         }
         ifWinGame();
-
-
-
     })
 }
-
-function stopGame() {
-    clearInterval(timeLimit);
-    btn.removeEventListener("click", startGame, true)
+else {
+    console.log("flag false일때 실행");
 }
+}
+
+
+function startTimer() {
+    
+    
+    timer = setInterval(() => {
+        timeCount -= 1;
+        timeText.innerHTML = `0:0${timeCount}`;
+        if (timeCount == 0) {
+            stopTimer();
+        }
+    }, 1000);
+    
+}
+
+function stopTimer() {
+    clearInterval(timer);
+    flag = false;
+    
+}
+
 
 
 function ifWinGame() {
     if (count === 0) {
         console.log("win");
-    }
-}
-
-function checkState() {
-    if (flag == false) {
-        //멈춘상태
-    } else {
-        //다시 시작상태
     }
 }
 
@@ -110,19 +112,20 @@ btn.addEventListener("click", (e) => {
 
     newCord(carrot);
     newCord(bug);
-    startGame();
-    if (e.currentTarget.className == 'will_stop') {
-        flag = false;
+    
+
+    if(flag === true) { //실행중일때 버튼을 클릭하면
         btn.innerHTML = `<i class="fas fa-play"></i>`;
-        btn.setAttribute("class", "will_start") //현재 정지
-    } else if (e.currentTarget.className == 'will_start') {
+        stopTimer();
+    } else { //정지상태일때 버튼을 클릭하면
         flag = true;
         btn.innerHTML = `<i class="fas fa-stop"></i>`;
-        btn.setAttribute("class", "will_stop"); //현재 실행중
-    };
-    checkState();
-
+        startGame();
+    }
+    
+   
 
 }, true)
 
 //test
+
