@@ -78,12 +78,17 @@ li {
   left: 0;
   top: 0;
 }
-
+.carrot_field.on .carrot,
+.carrot_field.on .bug {
+  opacity: 1;
+}
 .carrot,
 .bug {
   position: absolute;
   left: 0;
   top: 0;
+  opacity: 0;
+  transition: 0.2s;
 }
 
 .carrot:hover,

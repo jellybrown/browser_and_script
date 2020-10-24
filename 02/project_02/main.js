@@ -19,12 +19,16 @@ let timeCount = 10;
 let timeCountText;
 let clickThis;
 let eventCheck = false; //이벤트 체크 (중복 방지)
+let soundStart = false;
 const endBg = document.querySelector(".game_end_bg");
 const stateText = document.querySelector(".state_text");
 const lostText = "you lost!";
 const winText = "you win!😆";
 const overText = "time over...";
-
+const carrotSound = new Audio("./sound/carrot_pull.mp3");
+const bugSound = new Audio("./sound/bug_pull.mp3");
+const winSound = new Audio("./sound/game_win.mp3");
+const bgSound = new Audio("./sound/bg.mp3");
 //carrot.style.left = `${widthValue}px`;
 //carrot.style.top = `${heightValue - carrotHeight}px`;
 
@@ -50,7 +54,15 @@ function newCord(ele) {
   });
 }
 
+function soundPlay(sound) {
+  sound.currentTime = 0;
+  sound.play();
+}
+function stopSound(sound) {
+  sound.pause();
+}
 function startGame() {
+  carrotField.classList.add("on");
   if (flag === true) {
     if (timeCount < 10) {
       //두자리수 맞춰주기
@@ -66,28 +78,34 @@ function startGame() {
     if (eventCheck === true) {
       return;
     } else {
-      carrotField.addEventListener("click", (e) => {
-        eventCheck = true;
-        clickThis = e.target;
-        if (clickThis.className == "bug") {
-          endBg.classList.add("on");
-          stateText.innerHTML = lostText;
-          stopTimer();
-        } else if (clickThis.className == "carrot") {
-          console.log("설마??");
-          clickThis.parentNode.removeChild(clickThis);
-          count -= 1;
-          countText.innerHTML = `${count}`;
-          if (count === 0) {
-            endBg.classList.add("on");
-            stateText.innerHTML = winText;
-            stopTimer();
-          }
-        }
-      });
+      carrotField.addEventListener("click", insideCarrot, true);
     }
   } else {
     console.log("flag false일때 실행");
+  }
+}
+function insideCarrot(e) {
+  eventCheck = true;
+  clickThis = e.target;
+  if (clickThis.className == "bug") {
+    stopSound(bgSound);
+    soundPlay(bugSound);
+    endBg.classList.add("on");
+    stateText.innerHTML = lostText;
+    stopTimer();
+  } else if (clickThis.className == "carrot") {
+    console.log("설마??");
+    clickThis.parentNode.removeChild(clickThis);
+    soundPlay(carrotSound);
+    count -= 1;
+    countText.innerHTML = `${count}`;
+    if (count === 0) {
+      endBg.classList.add("on");
+      stateText.innerHTML = winText;
+      stopSound(bgSound);
+      soundPlay(winSound);
+      stopTimer();
+    }
   }
 }
 
@@ -118,13 +136,16 @@ btn.addEventListener(
 
     if (flag === true) {
       //실행중일때 버튼을 클릭하면
+      stopSound(bgSound);
       btn.innerHTML = `<i class="fas fa-play"></i>`;
       stopTimer();
-      carrotField.removeEventListener("click", () => {});
+      carrotField.removeEventListener("click", insideCarrot, true);
     } else {
       //정지상태일때 버튼을 클릭하면
+      soundPlay(bgSound);
       flag = true;
       btn.innerHTML = `<i class="fas fa-stop"></i>`;
+      carrotField.addEventListener("click", insideCarrot, true);
 
       startGame();
     }
@@ -139,6 +160,7 @@ function resetGame() {
   count = 10;
   timeCount = 10;
   flag = true;
+  soundPlay(bgSound);
 }
 
 replayBtn.addEventListener("click", () => {
@@ -148,4 +170,4 @@ replayBtn.addEventListener("click", () => {
   startGame();
 });
 
-// 마지막: 정지상태일때 event 없애기
+// 미완성: 엘리먼트 함수로 만들어서 뿌려주기
