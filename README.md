@@ -11,4 +11,4 @@
 
 ## 02 (shopping list, carrot game)
 * shopping list : 텍스트로 작성한것 화면에 목록으로 나타내기
-* carrot game : 당근
+* carrot game : 10초안에 당근찾기 게임
